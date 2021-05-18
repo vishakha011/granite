@@ -26,13 +26,10 @@ const TableRow = ({ data, showTask, destroyTask, updateTask }) => {
               Show
             </a>
           </td>
-          <td
-            className="px-6 py-4 text-sm font-medium
-            leading-5 text-right cursor-pointer"
-          >
+          <td className="px-6 py-4 text-sm font-medium leading-5 text-right cursor-pointer">
             <a
-              className="text-bb-purple text-opacity-50
-              hover:text-opacity-100"
+              className="text-indigo-600 hover:text-indigo-900"
+              onClick={() => updateTask(rowData.slug)}
             >
               Edit
             </a>
