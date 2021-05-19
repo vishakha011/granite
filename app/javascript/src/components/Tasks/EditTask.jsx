@@ -5,12 +5,15 @@ import Container from "components/Container";
 import TaskForm from "./Form/TaskForm";
 import PageLoader from "components/PageLoader";
 import Toastr from "components/Common/Toastr";
-import tasksApi from "../../apis/tasks";
+import tasksApi from "apis/tasks";
+import usersApi from "apis/users";
 
 const EditTask = ({ history }) => {
   const [title, setTitle] = useState("");
   const [userId, setUserId] = useState("");
   const [loading, setLoading] = useState(false);
+  const [assignedUser, setAssignedUser] = useState("");
+  const [users, setUsers] = useState([]);
   const [pageLoading, setPageLoading] = useState(true);
   const { slug } = useParams();
 
@@ -36,6 +39,7 @@ const EditTask = ({ history }) => {
       // logger.info(response)
       setTitle(response.data.task.title);
       setUserId(response.data.task.user_id);
+      setAssignedUser(response.data.assigned_user);
     } catch (error) {
       logger.error(error);
     } finally {
@@ -43,8 +47,24 @@ const EditTask = ({ history }) => {
     }
   };
 
+  const fetchUserDetails = async () => {
+    try {
+      const response = await usersApi.list();
+      setUsers(response.data.users);
+    } catch (error) {
+      logger.error(error);
+    } finally {
+      setPageLoading(false);
+    }
+  };
+
+  const loadData = async () => {
+    await fetchTaskDetails();
+    await fetchUserDetails();
+  };
+
   useEffect(() => {
-    fetchTaskDetails();
+    loadData();
   }, []);
 
   if (pageLoading) {
@@ -60,7 +80,8 @@ const EditTask = ({ history }) => {
       <TaskForm
         type="update"
         title={title}
-        userId={userId}
+        users={users}
+        assignedUser={assignedUser}
         setTitle={setTitle}
         setUserId={setUserId}
         loading={loading}

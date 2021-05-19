@@ -16,7 +16,7 @@ const TableRow = ({ data, showTask, destroyTask, updateTask }) => {
             className="px-6 py-4 text-sm font-medium
             leading-5 text-bb-gray whitespace-no-wrap"
           >
-            {rowData.user_id}
+            {rowData.user_name}
           </td>
           <td className="px-6 py-4 text-sm font-medium leading-5 text-right cursor-pointer">
             <a
