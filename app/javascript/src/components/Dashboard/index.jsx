@@ -29,6 +29,15 @@ const Dashboard = ({ history }) => {
     history.push(`/tasks/${slug}/edit`);
   };
 
+  const destroyTask = async slug => {
+    try {
+      await tasksApi.destroy(slug);
+      await fetchTasks();
+    } catch (error) {
+      logger.error(error);
+    }
+  };
+
   useEffect(() => {
     fetchTasks();
   }, []);
@@ -57,7 +66,7 @@ const Dashboard = ({ history }) => {
         data={tasks}
         updateTask={updateTask}
         showTask={showTask}
-        // destroyTask={destroyTask}
+        destroyTask={destroyTask}
       />
     </Container>
   );
