@@ -21,10 +21,12 @@ class TasksController < ApplicationController
     render status: :unprocessable_entity, json: { errors: e.message }
   end
 
-  def show  
+  def show
     authorize @task
-    task_creator = User.find(@task.creator_id).name
-    render status: :ok, json: { task: @task, assigned_user: @task.user, task_creator: task_creator }
+      comments = @task.comments.order('created_at DESC')
+      task_creator = User.find(@task.creator_id).name
+      render status: :ok, json: { task: @task, assigned_user: @task.user,
+                                  comments: comments, task_creator: task_creator }
   end
 
   def update
