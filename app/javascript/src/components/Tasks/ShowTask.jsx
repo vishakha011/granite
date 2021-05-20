@@ -28,6 +28,10 @@ const ShowTask = () => {
     fetchTaskDetails();
   }, []);
 
+  const updateTask = () => {
+    history.pushState(`/tasks/${taskDetails.slug}/edit`);
+  };
+
   if (pageLoading) {
     return <PageLoader />;
   }
