@@ -1,9 +1,25 @@
 import React from "react";
 import NavItem from "./NavItem";
-import { getFromLocalStorage } from "helpers/storage";
+import { getFromLocalStorage, setToLocalStorage } from "helpers/storage";
+import authApi from "../../apis/auth";
 
 const NavBar = () => {
   const userName = getFromLocalStorage("authUserName");
+
+  const handleLogout = async () => {
+    try {
+      await authApi.logout();
+      setToLocalStorage({
+        authToken: null,
+        email: null,
+        userId: null,
+        userName: null,
+      });
+      window.location.href = "/";
+    } catch (error) {
+      logger.error(error);
+    }
+  };
 
   return (
     <nav className="bg-white shadow">
@@ -33,6 +49,7 @@ const NavBar = () => {
              transition duration-150 ease-in-out border-b-2
              border-transparent hover:text-bb-gray-600 focus:outline-none
              focus:text-bb-gray-700 cursor-pointer"
+              onClick={handleLogout}
             >
               LogOut
             </a>
