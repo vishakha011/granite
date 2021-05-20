@@ -1,7 +1,10 @@
 import React from "react";
 import NavItem from "./NavItem";
+import { getFromLocalStorage } from "helpers/storage";
 
 const NavBar = () => {
+  const userName = getFromLocalStorage("authUserName");
+
   return (
     <nav className="bg-white shadow">
       <div className="px-2 mx-auto max-w-7xl sm:px-4 lg:px-8">
@@ -17,6 +20,13 @@ const NavBar = () => {
             </div>
           </div>
           <div className="flex items-center justify-end">
+            <span
+              className="inline-flex items-center px-2 pt-1 text-sm font-regular leading-5 text-bb-gray-600
+              text-opacity-50 transition duration-150 ease-in-out border-b-2 border-transparent focus:outline-none
+              focus:text-bb-gray-700"
+            >
+              {userName}
+            </span>
             <a
               className="inline-flex items-center px-1 pt-1 text-sm
              font-semibold leading-5 text-bb-gray-600 text-opacity-50

@@ -26,7 +26,7 @@ const EditTask = ({ history }) => {
       });
       setLoading(false);
       Toastr.success("Successfully updated task.");
-      history.push("/dashboard");
+      history.push("/");
     } catch (error) {
       setLoading(false);
       logger.error(error);
