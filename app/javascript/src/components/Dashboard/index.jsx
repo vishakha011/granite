@@ -8,7 +8,7 @@ import tasksApi from "apis/tasks";
 import { setAuthHeaders } from "apis/axios";
 
 const Dashboard = ({ history }) => {
-  const [tasks, setTasks] = useState([]);
+  // const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [pendingTasks, setPendingTasks] = useState([]);
   const [completedTasks, setCompletedTasks] = useState([]);
@@ -42,9 +42,9 @@ const Dashboard = ({ history }) => {
     history.push(`/tasks/${slug}/show`);
   };
 
-  const updateTask = slug => {
-    history.push(`/tasks/${slug}/edit`);
-  };
+  // const updateTask = slug => {
+  //   history.push(`/tasks/${slug}/edit`);
+  // };
 
   const destroyTask = async slug => {
     try {
@@ -52,6 +52,19 @@ const Dashboard = ({ history }) => {
       await fetchTasks();
     } catch (error) {
       logger.error(error);
+    }
+  };
+
+  const starTask = async (slug, status) => {
+    try {
+      const toggledStatus = status === "starred" ? "unstarred" : "starred";
+      await tasksApi.update({
+        slug,
+        payload: { task: { status: toggledStatus } },
+      });
+      await fetchTasks();
+    } catch (error) {
+      logger.error(errpr);
     }
   };
 
@@ -85,6 +98,7 @@ const Dashboard = ({ history }) => {
           destroyTask={destroyTask}
           showTask={showTask}
           handleProgressToggle={handleProgressToggle}
+          starTask={starTask}
         />
       )}
       {!either(isNil, isEmpty)(completedTasks) && (

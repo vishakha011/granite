@@ -8,6 +8,7 @@ const TableRow = ({
   showTask,
   destroyTask,
   handleProgressToggle,
+  starTask,
 }) => {
   const isCompleted = type === "completed";
   const toggledProgress = isCompleted ? "pending" : "completed";
@@ -43,13 +44,32 @@ const TableRow = ({
             {rowData.title}
           </td>
           {!isCompleted && (
-            <td
-              className="px-6 py-4 text-sm font-medium
+            <>
+              <td
+                className="px-6 py-4 text-sm font-medium
             leading-5 text-bb-gray-600 whitespace-no-wrap"
-            >
-              {rowData.user_id}
-            </td>
+              >
+                {rowData.user.name}
+              </td>
+              <td className="pl-6 py-4 text-center cursor-pointer">
+                <i
+                  className={classnames(
+                    "transition duration-300 ease-in-out text-2xl hover:text-bb-yellow p-1",
+                    {
+                      "text-bb-border ri-star-line":
+                        rowData.status != "starred",
+                    },
+                    {
+                      " text-bb-yellow ri-star-fill":
+                        rowData.status === "starred",
+                    }
+                  )}
+                  onClick={() => starTask(rowData.slug, rowData.status)}
+                ></i>
+              </td>
+            </>
           )}
+
           {isCompleted && (
             <>
               <td style={{ width: "164px" }}></td>
