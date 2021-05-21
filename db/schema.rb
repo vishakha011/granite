@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_20_072809) do
+ActiveRecord::Schema.define(version: 2021_05_21_040411) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -29,6 +29,7 @@ ActiveRecord::Schema.define(version: 2021_05_20_072809) do
     t.string "slug", null: false
     t.integer "user_id"
     t.integer "creator_id"
+    t.integer "progress", default: 0, null: false
     t.index ["slug"], name: "index_tasks_on_slug", unique: true
   end
 

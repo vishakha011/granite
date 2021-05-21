@@ -1,4 +1,6 @@
 class Task < ApplicationRecord
+  enum progress: {pending: 0, completed: 1}
+  
   belongs_to :user
   has_many :comments, dependent: :destroy
 
