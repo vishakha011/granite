@@ -11,6 +11,7 @@ class Task < ApplicationRecord
   
 
   before_create :set_slug
+  after_create :log_task_details
 
   private
 
@@ -34,5 +35,9 @@ class Task < ApplicationRecord
     starred = send(progress).starred.order('updated_at DESC');
     unstarred = send(progress).unstarred
     starred + unstarred
+  end
+
+  def log_task_details
+    TaskLoggerJob.perform_later(self)
   end
 end
