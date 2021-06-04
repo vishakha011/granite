@@ -42,7 +42,7 @@ jobs:
       - run: chmod a+x ./bin/webpack && ./bin/webpack
       - run: bundle exec rails webpacker:compile
 
-      - run: gem install bundler:2.1.4
+      - run: gem install bundler:2.2.16
 
       # Unit tests
 
